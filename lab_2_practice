@@ -14,11 +14,11 @@ if [ "$sF" != *.c ]; then
 fi
 
 #Collect all the file variables by grabbing the argument
-file_name=$(ls -l "$sF" | awk '{print $9}')
+file_name=$(ls -l "$sF" | awk '{print $10}')
 file_owner=$(ls -l "$sF" | awk '{print $3}')
-file_month=$(ls -l "$sF" | awk '{print $6}')
-file_day=$(ls -l "$sF" | awk '{print $7}')
-file_time=$(ls -l "$sF" | awk '{print $8}')
+file_month=$(ls -l "$sF" | awk '{print $7}')
+file_day=$(ls -l "$sF" | awk '{print $8}')
+file_time=$(ls -l "$sF" | awk '{print $9}')
 
 #Create header with new info and shove it into a temp file, the n replace og file with temp file
 {
