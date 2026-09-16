@@ -1,0 +1,38 @@
+#!/bin/bash
+
+sF="$1"
+#If the number of arguments is not 1 then we are not good
+if [ "$#" != 1 ]; then
+	echo "Please provide one source file"
+	exit 1
+fi
+
+#If its not a c get mad otherwise we good
+if [ "$sF" != *.c ]; then
+	echo "Not a C file"
+	exit 1
+fi
+
+#Collect all the file variables by grabbing the argument
+file_name=$(ls -l "$sF" | awk '{print $9}')
+file_owner=$(ls -l "$sF" | awk '{print $3}')
+file_month=$(ls -l "$sF" | awk '{print $6}')
+file_day=$(ls -l "$sF" | awk '{print $7}')
+file_time=$(ls -l "$sF" | awk '{print $8}')
+
+#Create header with new info and shove it into a temp file, the n replace og file with temp file
+{
+cat << EOF
+/**
+ * File Name: <"$file_name">
+ * Owner: <"$file_owner">
+ * Last Modified On: <"$file_month"> <"$file_day"> <"$file_time">
+ */
+EOF
+
+cat "$sF"
+} > temp.c
+
+mv temp.c "$sF"
+#Print out the result to the screen
+echo "new $sF"
